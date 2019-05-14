@@ -1,0 +1,14 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+home:
+  path: /
+  controller: App\Controller\HomeController::Home
+
+profile:
+  path: /profile
+  controller: App\Controller\ProfileController::Profile
+
+brone:
+  path: /profile/brone
+  controller: App\Controller\BroneController::EditBrone

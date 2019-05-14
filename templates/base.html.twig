@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BeautyByisk{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="shortcut icon" href="/beautybyisk/public/img/makeover.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+        <link rel="stylesheet" href="/beautybyisk/public/css/style.css" type="text/css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/beautybyisk/public/js/jquery-3.3.1.min.js"></script>
+        <script src="/beautybyisk/public/js/bootstrap.js"></script>
+
+    {% endblock %}
+</head>
+    <body>
+    {% block header %}
+        <header>
+            <div class="header">
+                <div class="title">
+                    <h1>Beauty Byisk</h1>
+                </div>
+                <div class="auth">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <ul>
+                        <li><a class="aprof" href="/beautybyisk/public/profiledit">Профиль</a></li>
+                    </ul>
+                </div>
+                    {% else %}
+                    <ul>
+                        <li><a class="open" href="/beautybyisk/public/login">Вход</a></li>
+                        <li><a class="register" href="/beautybyisk/public/register">Регистрация</a></li>
+                    </ul>
+
+                    <!-- авторизация -->
+                    {% block auth %}{% endblock %}
+                    <!-- Регистрация -->
+                    <div class="reg-page">
+                        <div class="form">
+                            <img class="FormClose" src="/beautybyisk/public/img/error.png">
+                            <form class="login-form">
+                                <input type="text" placeholder="Email"/>
+                                <input type="password" placeholder="Пароль"/>
+                                <input type="text" placeholder="Имя"/>
+                                <input type="text" placeholder="Фамилия"/>
+                                <input type="text" placeholder="Телефон"/>
+                                <button>Войти</button>
+                                <p class="message">Not registered? <a href="#">Create an account</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                    {% endif %}
+
+                <div class="clear"></div>
+                <div class="main">
+                    <a class="mainbut"href="/beautybyisk/public/"><img class="icon" src="/beautybyisk/public/img/left-arrow.png"><strong>ГЛАВНАЯ</strong></a>
+                    <a class="mainmenu" href="#"><img class="icon" src="/beautybyisk/public/img/menu.png"><strong>МЕНЮ</strong></a>
+                </div>
+            <div class="container">
+                <div class="whit">
+                    {{ render(controller('App\\Controller\\HomeController::menu')) }}
+                </div>
+                </div>
+            </div>
+        </header>
+    {% endblock %}
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+{% block footer %}
+    <div class="footer">
+        <div class="support right">
+            <p>По вопросам и предложениям<br>
+                обращайтесь в техническую поддержку</p>
+            <a href="{{ path('support') }}" class="sup">Техническая поддержка</a>
+        </div>
+    </div>
+    <script src="/beautybyisk/public/js/js.js"></script>
+{% endblock %}
+</html>

@@ -1,0 +1,11 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Создать новую категорию{% endblock %}
+
+{% block body %}
+    <h1>Создать новую категорию</h1>
+
+    {{ include('category/_form.html.twig') }}
+
+    <a href="{{ path('category_index') }}">назад</a>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% block title %}BeautyByisk{% endblock %}
+{% block body %}
+    <div class="row display-flex list">
+
+        {% for profile in pagination %}
+            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col col-xs-6 mastercart display-flex">
+                <div class="card" style="width: 18rem;">
+                    {% if profile.img %}
+                        <img class="card-img-top" src="/beautybyisk/src/img/{{ profile.img }}">
+                    {% else %}
+                        <img class="card-img-top" src="http://localhost/beautybyisk/src/img/82e27f3a96e34acaf8932670b92285f4.png">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title normal">{{ profile.name }} <br>{{ profile.family }}</h5>
+                        <h5 class="card-title italic"><img class="icon" src="/beautybyisk/public/img/{{ profile.category.img }}">
+                            {{ profile.category.name }}</h5>
+                        <p class="card-text"></p>
+                        <a href="master/{{ profile.user.id }}" class="btn-profile">Профиль</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {# display navigation #}
+        <div class="navigation center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+    <style>
+        .pagination>li>a, .pagination>li>span {
+            position: relative;
+            float: left;
+            padding: 6px 12px;
+            margin-left: -1px;
+            line-height: 1.42857143;
+            color: #f1f1f1;
+            text-decoration: none;
+            background-color: #1a1a1a;
+            border: 1px solid #040404;
+        }
+        .page-item.active .page-link {
+            z-index: 0;
+            color: #ffffff;
+            background-color: #c93b5c;
+            border-color: #000000;
+        }
+        .page-item.disabled .page-link {
+            color: #1a1a1a;;
+            pointer-events: none;
+            cursor: auto;
+            background-color: #1a1a1a;
+            border-color: #1a1a1a;
+        }
+        li.disabled{
+            color: #c93b5c;
+            background-color: #c93b5c;
+        }
+        .navigation{
+            width: 100%;
+            text-align: center;
+        }
+        ul.pagination{
+            text-align: center;
+        }
+        .pagination->ul {
+            border: 10px solid green;
+        }
+        .card-img-top{
+            height: 200px;
+            /*width: 400px;*/
+            overflow: hidden;
+        }
+        .italic{
+            font-style: italic;
+            color: black;
+        }
+        .card-body>h5{
+            margin-top: 0px;
+        }
+        .btn-profile {
+            padding: 5px;
+            color: rgb(206, 61, 95);
+            border: 1px solid #ce3d5f;
+            background-color: rgba(0, 0, 0, 0.55);
+        }
+        .btn-profile:hover{
+            padding: 5px;
+            color: #fff;
+            border: 1px solid black;
+            background-color: #ff003b;
+            transition: 1s;
+        }
+        .card-title {
+            margin-bottom: .75rem;
+            /* background-color: rgba(0,0,0,0.4); */
+            color: #2f2f2f;
+            text-align: center;
+            margin-left: 3px;
+        }
+        .card-body {
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            /* padding: 1.25rem; */
+            margin-top: -58%;
+            background-color: rgba(228, 223, 223, 0.48);
+            padding-bottom: 8px;
+        }
+        </style>
+{% endblock %}
+
+

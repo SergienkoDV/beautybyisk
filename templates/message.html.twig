@@ -1,0 +1,17 @@
+{% block message %}
+    <div class="qery-form">
+        <div class="form">
+            <img class="FormClose" src="/beautybyisk/public/img/error.png">
+            <form class="login-form">
+                <p class="center">Сообщение</p>
+                {{ form_start(Form) }}
+                {{ form_widget(Form) }}
+                <p class="send btn btn-success" id="{{ master_id }}">отправить</p>
+                {{ form_end(Form) }}
+            </form>
+        </div>
+    </div>
+    <script>
+    </script>
+{% endblock %}
+

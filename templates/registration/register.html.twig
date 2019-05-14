@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+<div class="login-page">
+    <div class="form">
+        <h1>Регистрация</h1>
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.master) }}
+        <button class="btn">Регистрация</button>
+    {{ form_end(registrationForm) }}
+    </div>
+</div>
+        <style>
+            .login-page{
+                display: block;
+            }
+            .footer{
+                padding-top: 430px;
+                margin-top: -100px;
+                padding-bottom: 200px;
+            }
+            .mainmenu{
+                display: none;
+            }
+            .form{
+                position: absolute;
+                width: 300px;
+                background-color: white;
+                padding: 5px;
+                padding-top: 5px;
+                margin: 0 auto -333px;
+                margin-top: -357px;
+            }
+            .btn{
+                margin-top: 10px;
+                padding-top: 3px;
+                padding-bottom: 3px;
+            }
+            .login-page>.form {
+                margin: 0 auto -427px;
+            }
+        </style>
+{% endblock %}

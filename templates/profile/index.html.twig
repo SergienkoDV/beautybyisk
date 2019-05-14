@@ -1,0 +1,64 @@
+{% extends 'profile/profile.html.twig' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block edit %}
+    <h1>Профиль</h1>
+
+    <table class="table table-bordered white">
+        <thead>
+        <tr>
+
+            <th colspan="2">Мой профиль</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Имя</td>
+            <td>{{ profile.name }}</td>
+        </tr>
+        <tr>
+            <td>Отчество</td>
+            <td>{{ profile.surname }}</td>
+        </tr>
+        <tr>
+            <td>Фамилия</td>
+            <td>{{ profile.family }}</td>
+        </tr>
+        <tr>
+            <td>Телефон</td>
+            <td>{{ profile.telephone }}</td>
+        </tr>
+        {% if app.user.master %}
+        <tr>
+            <td>ссылка на Vk</td>
+            <td><a href="{{ profile.vk }}">{{ profile.vk }}</a></td>
+        </tr>
+        <tr>
+            <td>ссылка на Instagram</td>
+            <td><a href="{{ profile.instagram }}">{{ profile.instagram }}</a></td>
+        </tr>
+        <tr>
+            <td>Категория</td>
+            <td>{{ profile.category.name }}</td>
+        </tr>
+        <tr>
+            <td>выполняемые работы</td>
+            <td>{% for sectione in profile.worksheets %}
+                {{ sectione.section.name }},
+                {% endfor %}<a href="/beautybyisk/public/profiledit/section">изменить</a>
+            </td>
+        </tr>
+            <tr>
+                <td>Ваша страница</td>
+                <td><a href="/beautybyisk/public/master/{{ profile.user.id }}">перейти</a></td>
+            </tr>
+        {% else %}{% endif %}
+        <tr>
+            <td></td>
+            <td><a class="btn btn-primary" href="{{ path('profile_edit', {'id': profile.id}) }}">Редактировать</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

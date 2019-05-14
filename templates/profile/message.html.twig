@@ -1,0 +1,21 @@
+{% extends 'profile/profile.html.twig' %}
+{% block edit %}
+<div class="tablebron">
+    <h4 class="card-title"><strong>Входящие</strong> |  <a href="/beautybyisk/public/profile/message/send" class="card-link">Отправленные</a></h4>
+    {% for message in messages %}
+    <div class="card message">
+        <div class="card-body" id="{{ message.id }}">
+            {{ render(controller('App\\Controller\\MessageController::NewMessage', {'id': message.author.id})) }}
+            <div class="messageimg"><img src="/beautybyisk/src/img/{{ message.author.profile.img }}"></div>
+            <h4 class="card-title"><a href="/beautybyisk/public/user/{{ message.author.id }}"> {{ message.author.profile.name }} {{ message.author.profile.family }}</a>
+                <strong><a href="tel:{{ message.author.profile.telephone }}">{{ message.author.profile.telephone }} </a></strong></h4>
+            <h5 class="card-subtitle mb-2 text-muted"> {{ message.date|date('d-m-Y H:i:s') }}</h5>
+            <p class="card-text">{{ message.text }} </p>
+            <a href="#" class="ams btn btn-info"  id="{{ message.id }}">Ответить</a>
+            <a href="#" class="delete btn btn-danger" id="{{ message.id }}">Удалить</a>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    <script src="/beautybyisk/public/js/message.js"></script>
+{% endblock %}

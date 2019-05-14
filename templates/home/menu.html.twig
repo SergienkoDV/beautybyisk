@@ -1,0 +1,32 @@
+<div class="left-menu center">
+    <ul class="left-menu center">
+        <img class="MenuClose" src="/beautybyisk/public/img/error.png">
+        {% for category in categories %}
+        <li><a href="#" class="limenu" id="{{ category.name }}"><img class="icon" src="/beautybyisk/public/img/{{ category.img }}">{{ category.name }}</a>
+            <ul>
+                {% for section in sections %}
+                    {% if section.parent.id == category.id %}
+                <li class="section {{ category.name }}" id="{{ section.id }}">{{ section.name }} ({{ section.worksheets|length }})</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+        <li><a href="/beautybyisk/public/ads" class="limenu"><img class="icon" src="/beautybyisk/public/img/ads.png">Объявления</a></li>
+        <li class="height"></li>
+    </ul>
+</div>
+<script>
+    $('.limenu').click(function() {
+        $('.limenu').css("color", "#000000");
+        $(this).css("color", "#ce3d5f");
+        var $limenuid = $(this).attr('id');
+        $('.section').hide();
+            $('.'+$limenuid).fadeTo( "slow" , 1, function() {});
+    })
+    $('.section').click(function(){
+        var $sectionid = $(this).attr('id');
+        $("body").load('http://localhost/beautybyisk/public/worksheets/'+$sectionid)
+        });
+    $('.section').hide();
+</script>

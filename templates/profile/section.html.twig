@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="form">
+    {{ app.user.profile.category.name }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}<br>
+    <button class="btn btn-success">{{ button_label|default('Сохранить') }}</button>
+</div>
+
+{{ form_end(form) }}
+    <style>
+        .form{
+            width: 400px;
+            margin: 20px;
+        }
+        label{
+            width: 90%;
+            font-weight: 100;
+        }
+        input{
+            max-width: 10%;
+            text-align: left;
+        }
+        .form button {
+            width: auto;
+            padding: 5px;
+            margin-bottom: 200px;
+        }
+    </style>
+{% endblock %}

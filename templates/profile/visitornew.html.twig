@@ -1,0 +1,24 @@
+{% extends 'admin.html.twig' %}
+{% block title %}профиль{% endblock %}
+
+{% block body %}
+    <h1>Заполните информацию о себе</h1>
+    <div class="form">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+    </div>
+    <button class="btn btn-success">{{ button_label|default('Сохранить') }}</button>
+    {{ form_end(form) }}
+    <style>
+        .form{
+            width: 300px;
+            margin-bottom: 10px;
+        }
+        .form input{
+            margin-bottom: 0px;
+        }
+    </style>
+{% endblock %}
+
+
+

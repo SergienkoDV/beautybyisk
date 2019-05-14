@@ -1,0 +1,37 @@
+{% extends 'visitor/visitor.html.twig' %}
+{% block edit %}
+    <div class="tablebron">
+        <h4 class="card-title">Входящие |  <a href="/beautybyisk/public/visitor/messagesend" class="card-link">Отправленные</a></h4>
+        {% for message in messages %}
+            <div class="card message" id="{{ message.id }}">
+                <div class="card-body" id="{{ message.id }}">
+                    <h4 class="card-title">{{ message.author.profile.name }} {{ message.author.profile.family }}<h5></h5></h4>
+                    <h5 class="card-subtitle mb-2 text-muted"> {{ message.date|date('Y-m-d H:i:s') }}</h5>
+                    <p class="card-text">{{ message.text }} </p>
+                    {{ render(controller('App\\Controller\\MessageController::NewMessage', {'id': message.author.id})) }}
+                    <a href="#" class="ams btn btn-info" id="">Ответить</a>
+                    <a href="#" class="delete btn btn-danger" id="{{ message.id }}">Удалить</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        $('.ams').click(function(){
+
+            $('.qery-form').show();
+        });
+        $(".delete").click(function() {
+            var $id = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost/beautybyisk/public/deletemessagesend/'+$id,
+                dataType: 'json',
+                data: {id: $id},
+                success: $("#"+$id).hide()
+            });
+
+            $('.qery-form').show();
+            $( ".qery-form .form" ).fadeTo( "slow" , 1, function() {});
+        });
+    </script>
+{% endblock %}

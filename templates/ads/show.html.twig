@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}Объявления{% endblock %}
+{% block body %}
+    <div class="ads">
+            <div class="center card w-75">
+                <div class="card-body">
+                    <h5 class="card-title normal">{{ ads.title }}</h5>
+                    <p class="card-text">{{ ads.text }}</p>
+                    <p class="card-text">{{ ads.date|date('d.m.Y H:i') }} <a href="/beautybyisk/public/user/{{ ads.author.profile.id }}">{{ ads.author.profile.family }} {{ ads.author.profile.name }}</a></p>
+                    {% if ads.img %}<div class="adsimg"><img src="/beautybyisk/src/img/{{ ads.img }}"></div>
+                    {% else %}<div class="adsimg"><img src="/beautybyisk/public/img/no-image.png"></div>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+    <style>
+        .center{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card-title{
+            text-align: center;
+            color: #000000;
+        }
+        .ads {
+            background-color: #1a1a1a;
+            margin-bottom: 36px;
+            margin-top: -10px;
+            background-image: url(/beautybyisk/public/img/pattern.png);
+            padding-bottom: 5px;
+        }
+        .adsimg>img{
+           max-height: 600px;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}Объявления{% endblock %}
+{% block body %}
+    <div class="ads">
+    <h3 class="titlecenter">Объявления {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="/beautybyisk/public/addads"> добавить</a>{% endif %}</h3>
+
+    {% for ad in ads %}
+
+        <div class="center card w-75">
+            <div class="card-body">
+                {% if ad.img %}<div class="messageimg"><img src="/beautybyisk/src/img/{{ ad.img }}"></div>
+                {% else %}<div class="messageimg"><img src="/beautybyisk/public/img/no-image.png"></div>
+                    {% endif %}
+                <h5 class="card-title normal">{{ ad.title }}</h5>
+                <p class="card-text">{{ ad.text }}</p>
+                <p class="card-text">{{ ad.date|date('d.m.Y H:i') }} <a href="/beautybyisk/public/user/{{ ad.author.profile.id }}">{{ ad.author.profile.family }} {{ ad.author.profile.name }}</a></p>
+                <a href="/beautybyisk/public/ads/{{ ad.id }}" class="btn btn-primary">Смотреть</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <style>
+        .center{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .titlecenter{
+            text-align: center;
+            color: white;
+        }
+        .ads {
+            background-color: #1a1a1a;
+            margin-bottom: 36px;
+            margin-top: -22px;
+            background-image: url(/beautybyisk/public/img/pattern.png);
+            padding-bottom: 5px;
+        }
+        .messageimg {
+            float: left;
+            margin-right: 10px;
+            min-width: 100px;
+        }
+    </style>
+{% endblock %}

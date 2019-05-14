@@ -1,0 +1,12 @@
+{% extends 'profile/profile.html.twig' %}
+
+{% block title %}Редактировать профиль{% endblock %}
+
+{% block edit %}
+    <h1>Редактировать профиль</h1>
+
+    {{ include('profile/_form.html.twig', {'button_label': 'Обновить'}) }}
+
+    <a class="btn btn-info" href="{{ path('profile_index') }}">назад</a>
+
+{% endblock %}

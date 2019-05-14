@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello HomeController!{% endblock %}
+{% block body %}
+    <div class="profile">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6  message">
+                    <div class="card">
+                        {% if app.user.profile.img %}
+                            <img class="card-img-top" src="/beautybyisk/src/img/{{ app.user.profile.img }}" alt="Card image cap">
+                        {% else %}
+                            <img class="card-img-top" src="/beautybyisk/src/img/a4f2f13174619dbf5c773ae374251894.jpeg" alt="Card image cap">
+                        {% endif %}
+                        <div class="card-body">
+                            <h4 class="card-title">{{ app.user.profile.family }} {{ app.user.profile.name }} {{ app.user.profile.surname }}</h4>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="/beautybyisk/public/profile/message" class="card-link">Сообщения</a></li>
+                            <li class="list-group-item"><a href="/beautybyisk/public/profile/statement" class="card-link">Посмотреть заявки</a></li>
+                            <li class="list-group-item"><a href="/beautybyisk/public/profiledit" class="card-link">Изменить профиль</a></li>
+                            {% if app.user.master %}
+                            <li class="list-group-item"><a href="/beautybyisk/public/profile/brone" class="card-link">Управление графиком</a></li>
+                            <li class="list-group-item"><a href="/beautybyisk/public/profile/price" class="card-link">Изменить прайс-лист</a></li>
+                            <li class="list-group-item"><a href="/beautybyisk/public/profile/works" class="card-link">Примеры работ</a></li>
+                            {% else %}{% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-8  col-sm-6 prof">
+
+                    {% block edit %}
+
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .footer{
+            margin-top: -36px;
+        }
+        </style>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'profile/profile.html.twig' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block edit %}
+    <h1>Прайс-лист</h1>
+    <div class="white">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Услуга</th>
+                <th scope="col">Цена</th>
+                <th>Ред.</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for price in prices %}
+            <tr>
+                <td>{{ price.service }}</td>
+                <td>{{ price.price }}</td>
+                <td>
+                    <a href="{{ path('price_edit', {'id': price.id}) }}"><img class="icon" src="/beautybyisk/public/img/edit.png"></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Нет записей, нажмите кнопку "добавить"</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <a class="btn btn-success" href="{{ path('price_new') }}"><img class="icon" src="/beautybyisk/public/img/plus.png">Добавить</a>
+
+    <style>
+        .crud{
+
+        }
+        </style>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'profile/profile.html.twig' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block edit %}
+    <h1>Профиль</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Имя</th>
+                <td>{{ profile.name }}</td>
+            </tr>
+            <tr>
+                <th>Отчесвто</th>
+                <td>{{ profile.surname }}</td>
+            </tr>
+            <tr>
+                <th>Фамилия</th>
+                <td>{{ profile.family }}</td>
+            </tr>
+            <tr>
+                <th>Телефон</th>
+                <td>{{ profile.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Фотография</th>
+                <td>{{ profile.img }}</td>
+            </tr>
+            <tr>
+                <th>ссылка на Vk</th>
+                <td>{{ profile.vk }}</td>
+            </tr>
+            <tr>
+                <th>ссылка на Instagram</th>
+                <td>{{ profile.instagram }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-dark" href="{{ path('profile_index') }}">Назад</a>
+
+    <a class="btn btn-info" href="{{ path('profile_edit', {'id': profile.id}) }}">Редактировать</a>
+
+{% endblock %}

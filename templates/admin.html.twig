@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BeautyByisk{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/beautybyisk/public/js/jquery-3.3.1.min.js"></script>
+        <script src="/beautybyisk/public/js/bootstrap.js"></script>
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+    <header>
+        <div class="adminpanel inline">Панель администратора
+        </div>
+        <ul class="adminmenu">
+            <li><a href="/beautybyisk/public/admin/category">Категории</a></li>
+            <li><a href="/beautybyisk/public/admin/section">Подкатегории</a></li>
+            <li><a href="/beautybyisk/public/admin/view">пользователи</a></li>
+        </ul>
+    </header>
+{% endblock %}
+<div class="container">
+{% block body %}{% endblock %}
+</div>
+<div class="footer"><a class="back" href="/beautybyisk/public">Вернуться на сайт</a></div>
+{% block javascripts %}{% endblock %}
+</body>
+<style>
+    .adminpanel{
+        color: #5c5c5c;
+        font-size: 25px;
+        text-align: center;
+    }
+    .back{
+        color: #5c5c5c;
+        font-size: 1.2em;
+    }
+    .adminmenu>li{
+        text-decoration: none;
+        display: inline-block;
+    }
+    .adminmenu{
+        text-align: center;
+    }
+    .adminmenu>li>a{
+        font-size: 1.2em;
+        color: #6c6c6c;
+        margin-right: 3px;
+        border-bottom: 1px solid #808080;
+    }
+    .adminmenu>li>a:hover{
+        font-size: 1.2em;
+        text-decoration: none;
+        color: #313131;
+        margin-right: 3px;
+        border-bottom: 1px solid #373737;
+        transition: 0.5s;
+    }
+    body{
+        margin-bottom: 50px;
+    }
+    .footer{
+        text-align: center;
+    }
+    .back:hover{
+        font-size: 1.2em;
+        text-decoration: none;
+        color: #313131;
+        border-bottom: 1px solid #373737;
+        transition: 0.5s;
+    }
+</style>
+</html>

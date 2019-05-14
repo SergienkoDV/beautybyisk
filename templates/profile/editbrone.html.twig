@@ -1,0 +1,81 @@
+{% extends 'profile/profile.html.twig' %}
+{% block edit %}
+    <div class="profile">
+
+        <div class="container-fluid">
+            <!-- class="alert alert-primary" role="alert">
+               Нажмите <img class="icon" src="/beautybyisk/public/img/error.png"> что бы это время никто не смог забронировать<br>
+                или <img class="icon" src="/beautybyisk/public/img/plus.png"> что бы отменить.
+            </div-->
+            <div class="alert alert-primary" role="alert">
+                Нажмите на строчку со временем чтобы изменить свободно/занято.<br>
+                Нажмите <img class="icon" src="/beautybyisk/public/img/error.png"> что бы отметить день как выходной.
+            </div>
+            {% for day in days %}
+                <div class="tableday col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <table class="table table-hover">
+                        <p class="dmy">{{ day.day|date('d.m.Y') }} <a href="http://localhost/beautybyisk/public/outputday/{{ day.id }}"><img class="icon day" id="{{ day.id }}" src="/beautybyisk/public/img/error.png"></a></p>
+                        <thead>
+                        <tr>
+                            <th scope="col">Время</th>
+                            <th scope="col">Статус</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for time in day.times %}
+                            {% if time.status == 0 %}
+                                <tr class="table-success" id="{{ time.id }}">
+                                    <td>{{ time.time|date('H:i') }}</td>
+                                    <td class="status">свободно</td>
+                                </tr>
+                            {% else %}
+                                {% if time.brone is empty %}
+                                <tr class="table-danger" id="{{ time.id }}">
+                                    <td>{{ time.time|date('H:i') }}</td>
+                                    <td class="status">занято</td>
+                                </tr>
+                                    {% else %}
+                                        <tr class="table-danger" id="{{ time.id }}">
+                                            <td>{{ time.time|date('H:i') }}</td>
+                                            <td class="status"><a href="/beautybyisk/public/user/{{ time.brone.id }}">{{ time.brone.profile.family }}</td>
+
+                                        </tr>
+                                    {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+    <script>
+        $(".table-danger").click(function () {
+            $(this).toggleClass('table-success');
+            $(this).find(".status").text('свободно');
+            var $dangerid = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost/beautybyisk/public/retime/' + $dangerid,
+                dataType: 'json',
+                data: {id: $dangerid},
+                success: $(this).removeClass('table-danger')
+            })
+        });
+            $(".table-success").click(function () {
+                $(this).toggleClass('table-danger');
+                var $id = $(this).attr('id');
+                $(this).find(".status").text('занято');
+                $.ajax({
+                    type: "POST",
+                    url: 'http://localhost/beautybyisk/public/foraddtime/' + $id,
+                    dataType: 'json',
+                    data: {id: $id},
+                    success: $(this).removeClass('table-success')
+                })
+        });
+    </script>
+{% endblock %}

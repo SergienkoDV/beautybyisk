@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}Объявления{% endblock %}
+{% block body %}
+    <div class="ads">
+        <div class="center card w-75">
+            {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.text) }}
+            <input type = "submit" name = "submit" value = "Отправить">
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <style>
+        .center{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .titlecenter{
+            text-align: center;
+            color: white;
+        }
+        .ads {
+            background-color: #1a1a1a;
+            margin-bottom: 36px;
+            margin-top: -10px;
+            background-image: url(/beautybyisk/public/img/pattern.png);
+            padding-bottom: 5px;
+        }
+    </style>
+{% endblock %}

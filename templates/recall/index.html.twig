@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="form">
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    </div>
+    <button class="submit btn btn-success">Отправить</button>
+    {{ form_end(form) }}
+    <div class="white">
+    {% for recall in recalls %}
+    <div class="white">{{ recall.text }}</div>
+    {% endfor %}
+    </div>
+<style>
+    .white{
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    </style>
+    <script>
+        var $text = $("#recaall_text");
+        var $token = $("#recaall__token");
+        $text.change(function (){
+            var $form = $(this).closest('form');
+            var $data = $text.val();
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost/beautybyisk/public/recall',
+                dataType: 'json',
+                data: {text: $data},
+                success: function(response) {
+                    if(response){ // check whether response is received
+                        location.window.href = "http://localhost/beautybyisk/public/";}
+                }
+            });
+
+            })
+
+    </script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'profile/profile.html.twig' %}
+{% block edit %}
+    <div class="tablebron">
+
+        {% for day in days %}
+        {% for time in day.times %}
+            {% if time.brone %}
+            {% if time.status == 2  %}<!-- заявка еще не подтверждена-->
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"><strong><a href="/beautybyisk/public/user/{{ time.brone.id }}">{{ time.brone.profile.name }} {{ time.brone.profile.family }}</a></strong></h4>
+                        <h4 class="card-title"><img class="icon" src="/beautybyisk/public/img/phone-call.png"><a href="tel:+{{ time.brone.profile.telephone }}">{{ time.brone.profile.telephone }}</a></h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-subtitle mb-2 text-muted">{{ time.time|date('d.m.Y H:i') }}</h5>
+                        <p class="card-text">Ожидает вашего подтверждения</p>
+                        <!--p class="card-text">Подстричь ногти</p-->
+                        <a href="/beautybyisk/public/confirm/acept/{{ time.id }}" class="btn btn-success">Принять</a>
+                        <a href="/beautybyisk/public/confirm/ignore/{{ time.id }}" class="btn btn-danger">Отклонить</a>
+                    </div>
+                </div>
+            {% elseif time.status == 1 %}<!-- заявка подтверждена-->
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"><strong><a href="/beautybyisk/public/user/{{ time.brone.id }}">{{ time.brone.profile.name }} {{ time.brone.profile.family }}</a></strong></h4>
+                        <h4 class="card-title"><img class="icon" src="/beautybyisk/public/img/phone-call.png"><a href="tel:+{{ time.brone.profile.telephone }}">{{ time.brone.profile.telephone }}</a></h4>
+                    </div>
+                    <div class="card-body green">
+                        <h5 class="card-subtitle mb-2 text-muted">{{ time.time|date('d.m.Y H:i') }}</h5>
+                        <p class="card-text">Вы подтвердили заявку</p>
+
+                        <a href="/beautybyisk/public/confirm/ignore/{{ time.id }}" class="btn btn-danger">Отменить</a>
+                    </div>
+                </div>
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% endfor %}
+
+    </div>
+{% endblock %}

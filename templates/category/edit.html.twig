@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Редактировать категории{% endblock %}
+
+{% block body %}
+    <h1>Редактировать категории</h1>
+
+    {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('category_index') }}">Назад</a>
+
+    {{ include('category/_delete_form.html.twig') }}
+{% endblock %}

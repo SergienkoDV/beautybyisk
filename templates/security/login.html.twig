@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="login-page">
+<div class="form">
+<form method="post" class="login-form">
+
+    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Логин" required autofocus>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+    <button type="submit">
+        Войти
+    </button>
+</form>
+    <a href="/beautybyisk/public/register"><button>
+            Регистрация
+        </button></a>
+</div>
+</div>
+    <style>
+        .form button {
+            padding: 0px;
+            margin-top: 3px;
+        }
+        .login-page{
+            display: block;
+        }
+        .footer{
+            padding-top: 300px;
+            padding-bottom: 200px;
+        }
+        .mainmenu{
+            display: none;
+        }
+        .login-page>.form{
+            width: 300px;
+            background-color: white;
+            padding: 35px 35px 15px 35px;
+        }
+    </style>
+{% endblock %}

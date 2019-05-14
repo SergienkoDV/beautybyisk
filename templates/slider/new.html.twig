@@ -1,0 +1,14 @@
+{% extends 'profile/profile.html.twig' %}
+
+{% block title %}Новый слайд{% endblock %}
+
+{% block edit %}
+    <div class="form">
+    <h1>Создать новый слайд</h1>
+
+    {{ include('slider/_form.html.twig') }}
+
+    <a class="btn btn-primary" href="{{ path('slider_index') }}">Назад</a>
+    </div>
+{% endblock %}
+

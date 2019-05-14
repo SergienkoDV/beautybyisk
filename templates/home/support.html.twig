@@ -1,0 +1,34 @@
+{% extends'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        Если вы заметили ошибку в работе сервиса пожалуйста сообщите нам.
+        {{ render(controller('App\\Controller\\MessageController::NewMessage', {'id': 1})) }}
+    </div>
+    <style>
+        .footer{
+            margin-top: 26px;
+        }
+        .qery-form{
+            display: block;
+        }
+    </style>
+    <script>
+            $(".send").click(function () {
+                var $text = $(".message_form_text").val();
+                if ($text.length < 1) {
+                    let $titleform = $('p.center');
+                    $titleform.html('Поле не заполнено!');
+                    $titleform.css("color", "red");
+                } else {
+                    $('.qery-form').hide();
+                    $.ajax({
+                        type: "POST",
+                        url: 'http://localhost/beautybyisk/public/message/1',
+                        dataType: 'json',
+                        data: {text: $text},
+                        success: console.log($text)
+                    })
+                }
+        });
+        </script>
+{% endblock %}

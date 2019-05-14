@@ -1,0 +1,81 @@
+
+    <div class="white">
+        <h4 class="inline"> <img class="icon" src="/beautybyisk/public/img/recall.png">Отзывы({{ user|length }})
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <p class="btn btn-link">написать</p>
+        {% endif %} </h4>
+        <div class="form card">
+            <p class="formtitle"><strong>Ваш отзыв</strong></p>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <h4 class="submit btn btn-success center" id="{{ id }}">Отправить</h4>
+
+        </div>
+        {{ form_end(form) }}
+        {% for recall in user %}
+        <div class="card message recall">
+            <div class="card-body">
+                <h4 class="card-title">{{ recall.user.profile.family }} {{ recall.user.profile.name }}</h4>
+                <h5 class="card-subtitle mb-2 text-muted">{{ recall.date|date('Y-m-d H:i:s') }}</h5>
+                <p class="card-text">{{ recall.text }} </p>
+            </div>
+        </div>
+{% endfor %}
+
+    </div>
+    <style>
+        .white>h4{
+            text-align: center;
+        }
+        .message>.message{
+            border-top: 5px solid #ffbfb0;
+        }
+        .form{
+            display: none;
+            text-align: center;
+            padding: 0 4px 0 4px;
+        }
+        .inline:hover{
+            cursor: pointer;
+        }
+        .submit{
+            margin-top: 3px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .recall{
+            display: none;
+        }
+        .form>p{
+            margin-bottom: -13px;
+        }
+    </style>
+    <script>
+        var $textrec = $(".form_recalls");
+        $('.submit').click(function e() {
+            var $id = $(this).attr('id');
+            var $datarec = $textrec.val();
+            console.log($datarec+$id);
+            if(isNaN($datarec)){
+                $.ajax({
+                    type: "POST",
+                    url: 'http://localhost/beautybyisk/public/test/'+$id,
+                    dataType: 'json',
+                    data: {text: $datarec},
+                    success: console.log($datarec)
+                })
+            }
+        });
+        $('.inline').click(function () {
+            if( $('.recall').is(':visible') ) {
+                $('.recall').hide();
+            }
+            else{
+                $( ".recall" ).fadeTo( "slow" , 1, function() {});
+            }
+        });
+        $('.btn-link').click(function () {
+            $('.form').show();
+        });
+
+    </script>

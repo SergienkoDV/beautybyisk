@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('slider_delete', {'id': slider.id}) }}" onsubmit="return confirm('Удалить запись?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ slider.id) }}">
+    <button class="btn btn-danger">Удалить</button>
+</form>

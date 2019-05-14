@@ -1,0 +1,43 @@
+{% extends 'visitor/visitor.html.twig' %}
+{% block edit %}
+    <div class="tablebron">
+        <h4 class="card-title"><a href="/beautybyisk/public/visitor/message" class="card-link">Входящие</a> |  Отправленные</h4>
+        {% for message in messages %}
+            <div class="card message" >
+                <div class="card-body" id="{{ message.id }}">
+                    <h4 class="card-title">{{ message.poluch.profile.name }} {{ message.poluch.profile.family }}</h4>
+                    <h5 class="card-subtitle mb-2 text-muted">{{ message.date|date('Y-m-d H:i:s') }}</h5>
+                    <p class="card-text">{{ message.text }} </p>
+                    {{ render(controller('App\\Controller\\MessageController::NewMessage', {'id': message.poluch.id})) }}
+                    <a href="#" class="ams btn btn-info" id="{{ message.id }}">Сообщение</a>
+                    <a href="#" class="delete btn btn-danger" id="{{ message.id }}">Удалить</a>
+                </div>
+            </div>
+
+        {% endfor %}
+
+
+
+
+    </div>
+
+    <script>
+        $('.ams').click(function(){
+            var $formid = $(this).attr('id');
+            $('#'+$formid+'>.qery-form').show();
+        });
+
+        $(".delete").click(function() {
+            var $id = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost/beautybyisk/public/deletemessagesend/'+$id,
+                dataType: 'json',
+                data: {id: $id},
+                success: $("#"+$id).hide()
+            });
+
+        });
+
+    </script>
+{% endblock %}

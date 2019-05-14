@@ -1,0 +1,11 @@
+{% extends 'profile/profile.html.twig' %}
+
+{% block title %}Новая запись{% endblock %}
+
+{% block edit %}
+    <h1>Новая запись</h1>
+
+    {{ include('price/_form.html.twig') }}
+
+    <a class="btn btn-primary" href="{{ path('price_index') }}">Назад</a>
+{% endblock %}

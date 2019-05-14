@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Профиль мастера: {{ master.profile.family }} {{ master.profile.name }} {% endblock %}
+
+{% block body %}
+    <div class="profile">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-12  message">
+                    <div class="card">
+                        {% if master.profile.img %}
+                            <img class="card-img-top" src="/beautybyisk/src/img/{{ master.profile.img }}">
+
+                        {% else %}
+                            <img class="card-img-top" src="http://localhost/beautybyisk/src/img/82e27f3a96e34acaf8932670b92285f4.png">
+                        {% endif %}
+                        <h4 class="card-title">{{ master.profile.family }} {{ master.profile.name }} {{ master.profile.surname }} {% if master.master == 1 %}(<a href="/beautybyisk/public/master/{{ master.id }}">Мастер</a>) {% else %}(пользователь){% endif %}</h4>
+                        <ul class="list-group list-group-flush">
+                            {% if master.profile.telephone %}
+                                <li class="list-group-item"><img class="icon" src="/beautybyisk/public/img/phone-call.png"><strong><a href="tel:{{ master.profile.telephone }}">{{ master.profile.telephone }} </a></strong></li>
+                            {% else %}<li class="list-group-item"><strong>номер телефона не указан</strong></li>{% endif %}
+                            <li class="list-group-item"><a href="#" class="btn btn-primary amsg">Сообщение</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-9 col-md-8 col-sm-12  message">
+
+                    {{ render(controller('App\\Controller\\MessageController::NewMessage', {'id': master.id})) }}
+                    {% block message %} {% endblock %}
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Ваш диалог с {{ master.profile.name }} {{ master.profile.family }}</h4>
+                            {% for messages in message %}
+                                {% if master.id != messages.author.id %}
+                                <div class="card message you">
+                                    <div class="card-body" id="{{ messages.id }}">
+                                        <div class="messageimg"><img src="/beautybyisk/src/img/{{ messages.author.profile.img }}"></div>
+                                        <h4 class="card-title">{{ messages.author.profile.name }} {{ messages.author.profile.family }}</h4>
+                                        <h5 class="card-subtitle mb-2 text-muted"> {{ messages.date|date('d-m-Y H:i:s') }}</h5>
+                                        <p class="card-text">{{ messages.text }} </p>
+                                    </div>
+                                </div>
+                                {% else %}
+                                    <div class="card message i">
+                                        <div class="card-body" id="{{ messages.id }}">
+                                            <div class="messageimg"><img src="/beautybyisk/src/img/{{ messages.author.profile.img }}"></div>
+                                            <h4 class="card-title">{{ messages.author.profile.name }} {{ messages.author.profile.family }}</h4>
+                                            <h5 class="card-subtitle mb-2 text-muted"> {{ messages.date|date('d-m-Y H:i:s') }}</h5>
+                                            <p class="card-text">{{ messages.text }} </p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .you{
+            margin-left: 25px;
+            border-radius: 15px 15px 0px 15px;
+            border: 1px solid rgba(21, 21, 21, 0.72);
+        }
+        .i{
+            margin-right: 25px;
+            border-radius: 15px 15px 15px 0px;
+            border: 1px solid rgba(21, 21, 21, 0.72);
+        }
+        .messageimg {
+            min-width: auto;
+            float: left;
+            margin-right: 15px;
+        }
+    </style>
+    <script>
+        $('.amsg').click(function () {
+            $('.qery-form').hide();
+            $(".send").click(function () {
+                var $sendid = $(this).attr('id');
+                var $text = $(".message_form_text").val();
+                $.ajax({
+                    type: "POST",
+                    url: 'http://localhost/beautybyisk/public/message/' + $sendid,
+                    dataType: 'json',
+                    data: {text: $text},
+                    success: $('.qery-form').hide()
+                })
+            })
+        });
+
+    </script>
+{% endblock %}

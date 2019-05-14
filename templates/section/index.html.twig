@@ -1,0 +1,36 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Подкатегории{% endblock %}
+
+{% block body %}
+    <h1>Подкатегории</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Категория</th>
+                <th>Имя</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for section in sections %}
+            <tr>
+                <td>{{ section.id }}</td>
+                <td>{{ section.parent.name }}</td>
+                <td>{{ section.name }}</td>
+                <td>
+                    <a href="{{ path('section_edit', {'id': section.id}) }}">редактировать</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">нет записей</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('section_new') }}">Создать новую</a>
+{% endblock %}

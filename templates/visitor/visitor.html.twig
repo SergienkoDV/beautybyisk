@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}Личный кабинет{% endblock %}
+{% block body %}
+    <div class="profile">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6  message">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ app.user.profile.family }} {{ app.user.profile.name }} {{ app.user.profile.surname }}</h4>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="/beautybyisk/public/profile/price" class="card-link">отправленные заявки</a></li>
+                            <li class="list-group-item"><a href="/beautybyisk/public/visitor/message" class="card-link">Сообщения</a></li>
+                            <li class="list-group-item"><a href="/beautybyisk/public/profiledit" class="card-link">Изменить профиль</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-8  col-sm-6 prof">
+
+                    {% block edit %}
+
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .footer{
+            margin-top: -36px;
+        }
+        .profile{
+            min-height: 500px;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Профиль мастера: {{ master.profile.family }} {{ master.profile.name }} {% endblock %}
+
+{% block body %}
+    <div class="profile">
+
+        <!--СКРЫТЫЙ СЛАЙДЕР-->
+            {% if master.sliders is empty %}
+
+            {% else %}
+
+
+
+        <div class="workslide">
+            <div class="row slider">
+                <div class="col-lg-5 col-md-7 col-sm-9 center-block slider">
+                    <img class="SliderClose" src="/beautybyisk/public/img/error.png">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="img-fluid" src="{{ master.sliders[0].img }}" alt="First slide">
+                                <div class="carousel-caption d-block">
+                                    <h3>{{ master.sliders[0].description }}</h3>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <img class="img-fluid" src="{{ master.sliders[1].img }}" alt="Second slide">
+                                <div class="carousel-caption d-block">
+                                    <h3>{{ master.sliders[1].description }}</h3>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <img class="img-fluid" src="{{ master.sliders[2].img }}" alt="Third slide">
+                                <div class="carousel-caption d-block">
+                                    <h3>{{ master.sliders[2].description }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+            {% endif %}
+
+        <div class="container-fluid">
+            {% if message is defined %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6  message">
+                    <div class="card">
+                            {% if master.profile.img %}
+                            <img class="card-img-top" src="/beautybyisk/src/img/{{ master.profile.img }}">
+
+                            {% else %}
+                                <img class="card-img-top" src="http://localhost/beautybyisk/src/img/82e27f3a96e34acaf8932670b92285f4.png">
+                        {% endif %}
+                        {{ render(controller('App\\Controller\\RecallController::test', {'id': master.id})) }}
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6  message">
+
+                    {{ render(controller('App\\Controller\\MessageController::NewMessage', {'id': master.id})) }}
+                    {% block message %} {% endblock %}
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="/beautybyisk/public/user/{{ master.id }}">{{ master.profile.family }} {{ master.profile.name }} {{ master.profile.surname }}</a></h4>
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item"><a href="#" class="btn btn-info works">Посмотреть примеры работ</a></li>
+                                <li class="list-group-item"><img class="icon" src="/beautybyisk/public/img/{{ master.profile.category.img }}"><strong>{{ master.profile.category.name }}</strong></li>
+                                <li class="list-group-item"><strong>Выезд на дом:<!--img class="icon" src="/beautybyisk/public/img/error.png"></li--> нет</strong></li>
+                                <!--li class="list-group-item"><strong>Сертификат&nbsp;</strong><img class="icon" src="/beautybyisk/public/img/plus.png"></li-->
+                                <li class="list-group-item"><strong>Социальные сети :</strong>
+                                <a href="{{ master.profile.vk }}"><img class="icon" src="/beautybyisk/public/img/vk.png"> </a>
+                                <a href="{{ master.profile.instagram }}"><img class="icon" src="/beautybyisk/public/img/instagram.png"> </a>
+                                {% if master.profile.telephone %}
+                                <li class="list-group-item"><img class="icon" src="/beautybyisk/public/img/phone-call.png"><strong><a href="tel:{{ master.profile.telephone }}">{{ master.profile.telephone }} </a></strong></li>
+                                {% else %}<li class="list-group-item"><strong>номер телефона не указан</strong></li>{% endif %}
+                                <li class="list-group-item"><img class="icon" src="/beautybyisk/public/img/marker.png"><strong>ул.Машиностроителей 27</strong></li>
+                                <li class="list-group-item"> <strong>Поделиться :</strong>
+                                    <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+                                    <script src="//yastatic.net/share2/share.js"></script>
+                                    <div class="ya-share2 center" data-services="vkontakte,odnoklassniki,viber,whatsapp,telegram"></div>
+                                </li>
+                                <li class="list-group-item"><a href="#" class="btn btn-primary amsg">Сообщение</a>
+                                </li>
+                                <li class="list-group-item">просмотров: <img class="icon" src="/beautybyisk/public/img/eye.png">{{ view }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-4 col-sm-6  message">
+                    <div class="tableprice  white card">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th class="normal" scope="col">Услуга</th>
+                                <th class="normal" scope="col">Цена(руб)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for prices in price %}
+                            <tr>
+                                <td>{{ prices.service }}</td>
+                                <td>{{ prices.price }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="profile">
+
+            <div class="container-fluid">
+                {% for day in master.days %}
+                <div class="tableday col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <table class="table table-hover">
+                        <p class="dmy"><img class="icon" src="/beautybyisk/public/img/calendar.png">{{ day.day|date('d.m.Y') }}</p>
+                        <thead>
+                        <tr>
+                            <th scope="col">Время</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Действие</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for time in day.times %}
+                            {% if time.status == 0 %}
+                        <tr class="table-success">
+                            <td>{{ time.time|date('H:i') }}</td>
+                            <td>свободно</td>
+                            <td><a href="/beautybyisk/public/fortime/{{ time.id }}">записаться</a></td>
+                        </tr>
+                            {% elseif time.status == 2 %}
+                                <tr class="table-warning">
+                                    <td>{{ time.time|date('H:i') }}</td>
+                                    <td colspan="2">отправлен запрос</td>
+                                </tr>
+                            {% else  %}
+                                <tr class="table-danger">
+                                    <td>{{ time.time|date('H:i') }}</td>
+                                    <td colspan="2">занято</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+{% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        $('.amsg').click(function () {
+            $('.qery-form').hide();
+            $(".send").click(function () {
+                var $sendid = $(this).attr('id');
+                var $text = $(".message_form_text").val();
+                    $.ajax({
+                        type: "POST",
+                        url: 'http://localhost/beautybyisk/public/message/' + $sendid,
+                        dataType: 'json',
+                        data: {text: $text},
+                        success: $('.qery-form').hide()
+                    })
+            })
+        });
+
+    </script>
+{% endblock %}

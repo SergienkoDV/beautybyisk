@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Редактирование{% endblock %}
+
+{% block body %}
+    <h1>Редактирование</h1>
+
+    {{ include('section/_form.html.twig', {'button_label': 'Обновить'}) }}
+
+    <a href="{{ path('section_index') }}">Назад</a>
+
+    {{ include('section/_delete_form.html.twig') }}
+{% endblock %}

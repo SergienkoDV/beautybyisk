@@ -1,0 +1,47 @@
+{% extends 'profile/profile.html.twig' %}
+{% block edit %}
+<div class="tablebron">
+    {% if brone is empty %}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"> Заявки:</h5>
+             </div>
+             <div class="card-body">
+                 <!--h5 class="card-title">Special title treatment</h5-->
+                <p class="card-text">Вы пока не отправляли заявки</p>
+            </div>
+        </div>
+    {% endif %}
+    {% for bron in brone %}
+        {% if bron.status == 2 %}<!-- заявка еще не подтверждена-->
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title"><strong><a href="/beautybyisk/public/user/{{ bron.day.user.id }}">{{ bron.day.user.profile.name }} {{ bron.day.user.profile.family }}</a></strong></h4>
+            <!--h4 class="card-title"><img class="icon" src="/beautybyisk/public/img/phone-call.png"><a href="tel:+1234567890">89130218393</a></h4-->
+        </div>
+        <div class="card-body">
+            <h5 class="card-subtitle mb-2 text-muted">{{ bron.time|date('d.m.Y H:i') }}</h5>
+            <p class="card-text">Ваша заявка еще не обработана</p>
+            <!--p class="card-text">Подстричь ногти</p-->
+            <!--a href="/beautybyisk/public/confirm/acept/{{ bron.id }}" class="btn btn-success">Принять</a-->
+            <a href="/beautybyisk/public/confirm/ignore/{{ bron.id }}" class="btn btn-danger">Отменить</a>
+        </div>
+    </div>
+        {% elseif bron.status == 1 %}<!-- заявка подтверждена-->
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"><strong><a href="/beautybyisk/public/user/{{ bron.day.user.id }}">{{ bron.day.user.profile.name }} {{ bron.day.user.profile.family }}</a></strong></h4>
+                </div>
+                <div class="card-body green">
+                    <h5 class="card-subtitle mb-2 text-muted">{{ bron.time|date('d.m.Y H:i') }}</h5>
+                    <p class="card-text">Ваша заявка подтверждена</p>
+
+                    <a href="/beautybyisk/public/confirm/ignore/{{ bron.id }}" class="btn btn-danger">Отменить</a>
+                </div>
+            </div>
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+{% endblock %}
