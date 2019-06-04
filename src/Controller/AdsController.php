@@ -50,6 +50,7 @@ class AdsController extends Controller
         if ($form->isSubmitted()) {
             $ads = new Ads();
             $ads = $form->getData();
+
             $ads->setAuthor($this->getUser());
             $date = new \DateTime();
             $date = $date->add(new DateInterval('PT5H'));
